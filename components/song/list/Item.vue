@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-08-01 20:42:57
- * @LastEditTime: 2022-08-01 21:23:54
+ * @LastEditTime: 2022-08-02 20:12:14
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\components\song\list\Item.vue

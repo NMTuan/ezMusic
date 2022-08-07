@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-07-29 15:35:30
- * @LastEditTime: 2022-08-01 20:47:23
+ * @LastEditTime: 2022-08-07 18:14:40
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\pages\index.vue
@@ -13,7 +13,7 @@
         <SongListItem v-for="(song, index) in songList" class="flex items-center p-2" :song="song" :index="index + 1">
         </SongListItem>
         <Player />
-        <pre>{{ songList }}</pre>
+        <!-- <pre>{{ songList }}</pre> -->
     </div>
 </template>
 <script lang="ts" setup>

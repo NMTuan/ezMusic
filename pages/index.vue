@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-07-29 15:35:30
- * @LastEditTime: 2022-08-07 18:14:40
+ * @LastEditTime: 2022-08-08 20:57:43
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\pages\index.vue
@@ -12,7 +12,6 @@
         <div>total: {{ meta.total_count }}</div>
         <SongListItem v-for="(song, index) in songList" class="flex items-center p-2" :song="song" :index="index + 1">
         </SongListItem>
-        <Player />
         <!-- <pre>{{ songList }}</pre> -->
     </div>
 </template>

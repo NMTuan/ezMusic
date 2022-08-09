@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-07-29 10:07:12
- * @LastEditTime: 2022-08-01 20:56:39
+ * @LastEditTime: 2022-08-09 17:39:13
  * @LastEditors: NMTuan
  * @Description:
  * @FilePath: \ezMusic\nuxt.config.ts
@@ -11,6 +11,7 @@ import { defineNuxtConfig } from 'nuxt'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
+    ssr: false,
     modules: [
         '@unocss/nuxt',
         '@intlify/nuxt3',

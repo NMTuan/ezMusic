@@ -2,48 +2,60 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-08-01 20:58:30
- * @LastEditTime: 2022-08-01 21:08:44
+ * @LastEditTime: 2022-08-09 16:26:12
  * @LastEditors: NMTuan
  * @Description:
  * @FilePath: \ezMusic\composables\usePlayer.ts
  */
 import { defineStore } from 'pinia'
-const api = useApi()
 
-export default defineStore('auth', {
-    state: () => {
-        return {
-            el: null
+export default () => {
+    const config = useRuntimeConfig()
+    const api = useApi()
+
+    const store = defineStore('auth', {
+        state: () => {
+            return {
+                el: null, // 播放器
+                list: [], // 播放列表
+                currentId: '' //当前歌曲id
+            }
+        },
+        getters: {
+            // 当前歌曲
+            currentSong(state) {
+                return state.list.find(
+                    (item) => item.song_id.id === state.currentId
+                )
+            }
+        },
+        actions: {
+            // 替换播放列表
+            replaceList(data) {
+                if (Array.isArray(data)) {
+                    this.list = data
+                }
+            },
+            // 播放歌曲
+            play(id) {
+                if (typeof id === 'undefined') {
+                    return
+                }
+                this.currentId = id
+                this.el.src =
+                    config.public.minioUrlPrefix +
+                    this.currentSong.song_id.file.filename_disk
+                this.el.play()
+            },
+            // 获取随机数, 0 ~ list.length - 1
+            random() {
+                return Math.floor(Math.random() * this.list.length)
+            },
+            // 随机播放
+            randomPlay() {
+                this.play(this.list[this.random()].song_id.id)
+            }
         }
-    },
-    getters: {
-        // 已登录?
-        isLogged(state) {
-            return 1
-        }
-    },
-    actions: {
-        // 登录
-        // login(payload = {}) {
-        //     return new Promise((resolve, reject) => {
-        //         api.auth
-        //             .login(payload)
-        //             .then((res) => {
-        //                 if (unref(res.error) !== null) {
-        //                     reject(res)
-        //                     return
-        //                 }
-        //                 const { data } = unref(res.data)
-        //                 useCookie('access_token').value = data.access_token
-        //                 useCookie('refresh_token').value = data.refresh_token
-        //                 this.access_token = data.access_token
-        //                 this.refresh_token = data.refresh_token
-        //                 resolve(res)
-        //             })
-        //             .catch((error) => {
-        //                 reject(error)
-        //             })
-        //     })
-        // }
-    }
-})
+    })
+    return store()
+}

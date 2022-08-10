@@ -2,17 +2,18 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-08-08 21:09:38
- * @LastEditTime: 2022-08-09 15:35:43
+ * @LastEditTime: 2022-08-10 17:15:22
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\pages\playlist\[id].vue
 -->
 <template>
     <div>
-        <ClientOnly>
-            <pre>{{ meta }}</pre>
-        </ClientOnly>
-        <PlayListItem v-for='item in player.list' :item='item' />
+        <div>
+            共 {{ meta.filter_count }} 首歌曲
+            <button @click="playAll">播放所有歌曲</button>
+        </div>
+        <PlayListItem v-for='item in list' :item='item' />
     </div>
 </template>
 <script setup>
@@ -30,7 +31,12 @@ const fetch = async (id) => {
     const data = unref(res.data)
     meta.value = data.meta
     list.value = data.data
-    player.list = data.data
+}
+
+const playAll = () => {
+    console.log('play All');
+    player.list = list.value
+    player.randomPlay()
 }
 
 if (route.params.id) {

@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-08-01 20:58:30
- * @LastEditTime: 2022-08-09 16:26:12
+ * @LastEditTime: 2022-08-10 14:47:47
  * @LastEditors: NMTuan
  * @Description:
  * @FilePath: \ezMusic\composables\usePlayer.ts
@@ -10,7 +10,7 @@
 import { defineStore } from 'pinia'
 
 export default () => {
-    const config = useRuntimeConfig()
+    const storageUrlPrefix = useCookie('storageUrlPrefix').value
     const api = useApi()
 
     const store = defineStore('auth', {
@@ -43,7 +43,7 @@ export default () => {
                 }
                 this.currentId = id
                 this.el.src =
-                    config.public.minioUrlPrefix +
+                    storageUrlPrefix +
                     this.currentSong.song_id.file.filename_disk
                 this.el.play()
             },

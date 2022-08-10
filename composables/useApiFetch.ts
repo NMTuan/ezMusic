@@ -2,18 +2,17 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-06-19 16:07:49
- * @LastEditTime: 2022-08-01 19:43:57
+ * @LastEditTime: 2022-08-10 14:45:44
  * @LastEditors: NMTuan
  * @Description: 异步处理配置
  * @FilePath: \ezMusic\composables\useApiFetch.ts
  */
 
 export default async (url, options) => {
-    // const auth = useAuth()
-    const config = useRuntimeConfig()
+    const apiUrlPrefix = useCookie('apiUrlPrefix').value
     const params = {
         headers: {},
-        baseURL: config.public.apiBaseUrl,
+        baseURL: apiUrlPrefix,
         // 拦截器 https://github.com/unjs/ohmyfetch#%EF%B8%8F-interceptors
         async onRequestError({ request, options, error }) {
             // Log error

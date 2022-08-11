@@ -11,6 +11,7 @@
         "@intlify/nuxt3": "^0.2.3",
         "@nuxtjs/color-mode": "^3.1.4",
         "@unocss/nuxt": "^0.44.7",
+        "@unocss/transformer-directives": "^0.45.6",
         "nuxt": "3.0.0-rc.6"
     },
     "dependencies": {

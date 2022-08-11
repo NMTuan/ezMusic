@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-07-29 15:35:30
- * @LastEditTime: 2022-08-11 17:46:59
+ * @LastEditTime: 2022-08-11 21:17:32
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\pages\index.vue
@@ -21,18 +21,18 @@
                 <p>
                     本项目为纯静态的前端项目，不涉及任何音频资源的存储与分发。
                     如有侵权或不当之处请与
-                    <a href="https://github.com/NMTuan" target="_blank" class="text-violet-500">我</a>
+                    <a href="https://github.com/NMTuan" target="_blank">我</a>
                     联系。
                 </p>
                 <p>
                     本项目基于 MIT 协议完全开源，你可以对源码做任意修改与使用，由此产生的法律问题本站及本项目原作者概不负责。
                     <a href="https://github.com/NMTuan/ezMusic" target="_blank">
-                        <div class="i-ri-github-fill inline-block align-middle text-lg text-violet-500"></div>
+                        <div class="i-ri-github-fill inline-block align-middle text-lg"></div>
                     </a>
                 </p>
                 <p>
                     后端服务需自行搭建，教程详见
-                    <a href="#" target="_blank" class="text-violet-500">此处</a>
+                    <a href="#" target="_blank">此处</a>
                     。请确保拥有版权。
                 </p>
                 <p>
@@ -49,7 +49,10 @@
                 <div class="flex flex-row-reverse">
                     <div @click="submit" :class="btnClass" class="bg-violet-500 text-white
                     hover:bg-violet-600
-                    ">保存</div>
+                    ">
+                        <div v-if="loading" class="i-ri-loader-3-line text-lg animate-spin mx-auto"></div>
+                        <div v-else>保存</div>
+                    </div>
                     <div @click="close" :class="btnClass" class="text-violet-500
                     hover:bg-neutral-100
                     ">取消</div>
@@ -70,14 +73,7 @@ const storageUrlPrefix = useCookie('storageUrlPrefix', {
     expires: new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000)
 })
 const show = ref(false)
-
-watchEffect(() => {
-    useCookie('apiUrlPrefix').value = apiUrlPrefix.value
-})
-watchEffect(() => {
-    useCookie('storageUrlPrefix').value = storageUrlPrefix.value
-})
-
+const loading = ref(false)
 
 const clickLogo = () => {
     const apiUrlPrefix = useCookie('apiUrlPrefix1')
@@ -101,6 +97,8 @@ const inputClass = [
 ]
 
 const btnClass = [
+    'w-16',
+    'text-center',
     'cursor-pointer',
     'px-4',
     'py-2',
@@ -117,6 +115,6 @@ const submit = () => {
 </script>
 <style lang="scss" scoped>
 a {
-    @apply text-violet-500 bg-red;
+    @apply text-violet-500;
 }
 </style>

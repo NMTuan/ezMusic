@@ -2,16 +2,13 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-07-29 10:07:12
- * @LastEditTime: 2022-08-08 21:18:35
+ * @LastEditTime: 2022-08-11 15:58:44
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\app.vue
 -->
 <template>
-  <div>
-    <Player />
-    <PlayList />
-    <!-- <div text="5xl sky" m="x-auto b-2" class="i-ri-global-line">
+  <!-- <div text="5xl sky" m="x-auto b-2" class="i-ri-global-line">
     </div>
     <div bg="sky" p="y-2" border="rounded-lg" text="white" m="t-2">
       hello world
@@ -23,10 +20,10 @@
     <div bg="yellow-100 dark:yellow-900" p="4" text="sky-400 dark:green-200">
       {{ $t('menu.home') }}
     </div> -->
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+  <div id="dialog"></div>
 </template>
 <script setup lang="ts">
 // 设定默认语言
@@ -36,3 +33,17 @@ if (i18nCookie.value) {
   locale.value = i18nCookie.value
 }
 </script>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#__nuxt {
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+</style>

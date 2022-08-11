@@ -15,6 +15,9 @@
     },
     "dependencies": {
         "@pinia/nuxt": "^0.3.1",
-        "pinia": "^2.0.17"
+        "normalize.css": "^8.0.1",
+        "pinia": "^2.0.17",
+        "sass": "^1.54.4",
+        "simplebar": "^5.3.8"
     }
 }

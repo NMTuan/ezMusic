@@ -2,10 +2,10 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-08-11 15:05:23
- * @LastEditTime: 2022-08-11 17:02:02
+ * @LastEditTime: 2022-08-11 22:11:09
  * @LastEditors: NMTuan
  * @Description: 
- * @FilePath: \ezMusic\components\config\dialog.vue
+ * @FilePath: \ezMusic\components\config\Dialog.vue
 -->
 <template>
     <div class="text-neutral-600">
@@ -55,7 +55,7 @@ const close = () => {
 }
 
 const clickMask = () => {
-    close()
+    // close()
 }
 const clickCloseIcon = () => {
     close()

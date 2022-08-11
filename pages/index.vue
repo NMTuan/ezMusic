@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-07-29 15:35:30
- * @LastEditTime: 2022-08-11 21:17:32
+ * @LastEditTime: 2022-08-11 22:17:56
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\pages\index.vue
@@ -44,6 +44,7 @@
                 <p>
                     <input type="text" :class="inputClass" v-model="storageUrlPrefix" placeholder="STORAGE URL">
                 </p>
+                <p class="text-sm text-neutral-300">注：此信息仅存于当前浏览器，默认保存30天。</p>
             </div>
             <template #foot="{ close }">
                 <div class="flex flex-row-reverse">
@@ -65,6 +66,8 @@
 definePageMeta({
     layout: 'page'
 })
+
+const api = useApi()
 
 const apiUrlPrefix = useCookie('apiUrlPrefix', {
     expires: new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000)
@@ -107,11 +110,29 @@ const btnClass = [
     'transition-all'
 ]
 
-
 const submit = () => {
-    console.log('submit')
+    console.log(/^http.*/.test(apiUrlPrefix.value))
+    console.log(/^http.*/.test(storageUrlPrefix.value))
+    if (!/^http.*/.test(apiUrlPrefix.value) || !/^http.*/.test(storageUrlPrefix.value)) {
+        alert('请正确填写配置信息')
+        return
+    }
+    if (loading.value) {
+        return
+    }
+    const { pending, error, data } = api.playlist.fetch()
+    watchEffect(() => {
+        loading.value = pending.value
+    })
+    watch(error, (val) => {
+        if (val) {
+            alert(error.value)
+        }
+    })
+    watch(data, () => {
+        location.reload()
+    })
 }
-
 </script>
 <style lang="scss" scoped>
 a {

@@ -43,7 +43,7 @@ export default defineNuxtConfig({
     runtimeConfig: {
         public: {
             apiBaseUrl: '', // 接口url
-            minioUrlPrefix: '' // 文件服务器url前缀
+            minioUrl: '' // 文件服务器url前缀
         }
     }
 })

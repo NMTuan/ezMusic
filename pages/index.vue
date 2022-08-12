@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-07-29 15:35:30
- * @LastEditTime: 2022-08-11 22:17:56
+ * @LastEditTime: 2022-08-12 11:16:14
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\pages\index.vue
@@ -39,10 +39,10 @@
                     请填写并保存以下两个配置信息，聆听自己的数字音频。
                 </p>
                 <p>
-                    <input type="text" :class="inputClass" v-model="apiUrlPrefix" placeholder="API URL">
+                    <input type="text" :class="inputClass" v-model="apiUrl" placeholder="API URL">
                 </p>
                 <p>
-                    <input type="text" :class="inputClass" v-model="storageUrlPrefix" placeholder="STORAGE URL">
+                    <input type="text" :class="inputClass" v-model="storageUrl" placeholder="STORAGE URL">
                 </p>
                 <p class="text-sm text-neutral-300">注：此信息仅存于当前浏览器，默认保存30天。</p>
             </div>
@@ -69,19 +69,22 @@ definePageMeta({
 
 const api = useApi()
 
-const apiUrlPrefix = useCookie('apiUrlPrefix', {
+const apiUrl = useCookie('apiUrl', {
     expires: new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000)
 })
-const storageUrlPrefix = useCookie('storageUrlPrefix', {
+const storageUrl = useCookie('storageUrl', {
     expires: new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000)
 })
 const show = ref(false)
 const loading = ref(false)
 
 const clickLogo = () => {
-    const apiUrlPrefix = useCookie('apiUrlPrefix1')
-    const storageUrlPrefix = useCookie('storageUrlPrefix1')
-    if (apiUrlPrefix.value && storageUrlPrefix.value) {
+    const apiUrl = useCookie('apiUrl')
+    const storageUrl = useCookie('storageUrl')
+    console.log(apiUrl.value);
+    console.log(storageUrl.value);
+
+    if (apiUrl.value && storageUrl.value) {
         navigateTo({ name: 'playlist' })
     } else {
         show.value = true
@@ -111,9 +114,9 @@ const btnClass = [
 ]
 
 const submit = () => {
-    console.log(/^http.*/.test(apiUrlPrefix.value))
-    console.log(/^http.*/.test(storageUrlPrefix.value))
-    if (!/^http.*/.test(apiUrlPrefix.value) || !/^http.*/.test(storageUrlPrefix.value)) {
+    console.log(/^http.*/.test(apiUrl.value))
+    console.log(/^http.*/.test(storageUrl.value))
+    if (!/^http.*/.test(apiUrl.value) || !/^http.*/.test(storageUrl.value)) {
         alert('请正确填写配置信息')
         return
     }
@@ -130,7 +133,8 @@ const submit = () => {
         }
     })
     watch(data, () => {
-        location.reload()
+        navigateTo({ name: 'playlist' })
+        // location.reload()
     })
 }
 </script>

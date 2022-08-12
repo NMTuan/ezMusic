@@ -9,10 +9,10 @@
  */
 
 export default (url, options) => {
-    const apiUrlPrefix = useCookie('apiUrlPrefix')
+    const apiUrl = useCookie('apiUrl')
     const params = {
         headers: {},
-        baseURL: apiUrlPrefix.value,
+        baseURL: apiUrl.value,
         lazy: true,
         initialCache: false,
         // 拦截器 https://github.com/unjs/ohmyfetch#%EF%B8%8F-interceptors

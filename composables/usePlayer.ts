@@ -10,7 +10,7 @@
 import { defineStore } from 'pinia'
 
 export default () => {
-    const storageUrlPrefix = useCookie('storageUrlPrefix').value
+    const storageUrl = useCookie('storageUrl').value
     const api = useApi()
 
     const store = defineStore('auth', {
@@ -43,8 +43,7 @@ export default () => {
                 }
                 this.currentId = id
                 this.el.src =
-                    storageUrlPrefix +
-                    this.currentSong.song_id.file.filename_disk
+                    storageUrl + this.currentSong.song_id.file.filename_disk
                 this.el.play()
             },
             // 获取随机数, 0 ~ list.length - 1

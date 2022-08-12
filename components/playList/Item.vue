@@ -43,7 +43,7 @@ const props = defineProps({
 const handleDblckick = () => {
     // console.log(player)
     player.play(props.item.song_id.id)
-    // player.el.src = config.public.minioUrlPrefix + props.item.song_id.file.filename_disk
+    // player.el.src = config.public.minioUrl + props.item.song_id.file.filename_disk
     // player.el.play()
 }
 

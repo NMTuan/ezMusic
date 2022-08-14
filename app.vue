@@ -2,19 +2,21 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-07-29 10:07:12
- * @LastEditTime: 2022-08-14 14:29:20
+ * @LastEditTime: 2022-08-14 15:34:09
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\app.vue
 -->
 <template>
-  <div>
+  <div class="h-full">
     <Transition name="fade">
       <MyLogo v-if='showLogo' :loading='loading' @click="clickLogo" />
     </Transition>
-    <NuxtLayout v-if="!showLogo">
-      <NuxtPage />
-    </NuxtLayout>
+    <Transition name="fade">
+      <NuxtLayout v-if="!showLogo">
+        <NuxtPage />
+      </NuxtLayout>
+    </Transition>
     <MyDialog v-model:show="showDialog" title="注意事项">
       <div class="dialog leading-6">
         <p>
@@ -167,32 +169,7 @@ onMounted(() => {
 })
 
 </script>
-<style lang="scss">
-* {
-  box-sizing: border-box;
-}
-
-html,
-body,
-#__nuxt {
-  height: 100%;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-  @apply bg-violet-50;
-}
-
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
+<style lang="scss" scoped>
 .dialog {
   a {
     @apply text-violet-500 no-underline;
@@ -213,5 +190,30 @@ body,
   &__button {
     @apply w-16 text-center cursor-pointer px-4 py-2 rounded ml-2 transition-all;
   }
+}
+</style>
+<style lang="scss">
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#__nuxt {
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  @apply bg-violet-50;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

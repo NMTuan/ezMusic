@@ -2,19 +2,23 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-08-08 21:09:38
- * @LastEditTime: 2022-08-14 14:21:57
+ * @LastEditTime: 2022-08-14 15:29:34
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\pages\playlist\[id].vue
 -->
 <template>
-    <div>
+    <div class="flex flex-col flex-1 overflow-hidden relative m-1 rounded bg-white">
         <div>
             共 {{ meta.filter_count }} 首歌曲
             <button @click="playAll">播放所有歌曲</button>
         </div>
-        {{ loading }}
-        <MyPlayListItem v-for='item in list' :item='item' />
+        <div class="flex-1 overflow-hidden">
+            <MyLoading v-if="loading" />
+            <Simplebar v-else>
+                <MyPlayListItem v-for='item in list' :item='item' />
+            </Simplebar>
+        </div>
     </div>
 </template>
 <script setup>

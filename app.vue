@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-07-29 10:07:12
- * @LastEditTime: 2022-08-14 11:35:44
+ * @LastEditTime: 2022-08-14 14:29:20
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\app.vue
@@ -85,7 +85,7 @@
 const config = useRuntimeConfig()
 const route = useRoute()
 const api = useApi()
-const showLogo = ref(false) // 显示 logo 还是 view
+const showLogo = ref(true) // 显示 logo 还是 view
 const loading = ref(false)  // logo 的 loading 状态
 const showDialog = ref(false) // 显示配置对话
 const submitLoading = ref(false)  // 配置表单 loading 状态

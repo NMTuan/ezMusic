@@ -2,14 +2,13 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-06-18 22:31:07
- * @LastEditTime: 2022-08-09 14:09:14
+ * @LastEditTime: 2022-08-14 14:17:53
  * @LastEditors: NMTuan
  * @Description:
  * @FilePath: \ezMusic\composables\useApi\playlist_song.ts
  */
 export default {
     fetch: (id) => {
-        const filter = new URLSearchParams()
         return useApiFetch('/items/playlist_song', {
             method: 'get',
             params: {

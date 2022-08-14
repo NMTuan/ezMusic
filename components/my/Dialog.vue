@@ -2,10 +2,10 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-08-11 15:05:23
- * @LastEditTime: 2022-08-12 09:46:33
+ * @LastEditTime: 2022-08-13 20:16:45
  * @LastEditors: NMTuan
  * @Description: 
- * @FilePath: \ezMusic\components\config\dialog.vue
+ * @FilePath: \ezMusic\components\dialog\Index.vue
 -->
 <template>
     <div class="text-neutral-600">

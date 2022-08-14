@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-07-29 10:07:12
- * @LastEditTime: 2022-08-11 21:12:53
+ * @LastEditTime: 2022-08-14 10:57:25
  * @LastEditors: NMTuan
  * @Description:
  * @FilePath: \ezMusic\nuxt.config.ts
@@ -42,8 +42,8 @@ export default defineNuxtConfig({
     },
     runtimeConfig: {
         public: {
-            apiBaseUrl: '', // 接口url
-            minioUrl: '' // 文件服务器url前缀
+            apiUrl: '', // 接口url
+            storageUrl: '' // 文件服务器url前缀
         }
     }
 })

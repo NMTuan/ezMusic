@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-07-29 16:05:46
- * @LastEditTime: 2022-08-14 15:37:23
+ * @LastEditTime: 2022-08-14 15:42:11
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\layouts\default.vue
@@ -14,7 +14,7 @@
     bg-white rounded
     shadow 
     ">
-            <Player />
+            <MyPlayer />
             <MyPlayList />
             <slot />
             <div class="p-1"></div>

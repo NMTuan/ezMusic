@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-07-29 10:07:12
- * @LastEditTime: 2022-08-14 15:34:09
+ * @LastEditTime: 2022-08-14 18:59:25
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\app.vue
@@ -204,7 +204,7 @@ body,
   overflow: hidden;
   margin: 0;
   padding: 0;
-  @apply bg-violet-50;
+  @apply bg-violet-50 text-neutral-800;
 }
 
 .fade-enter-active,

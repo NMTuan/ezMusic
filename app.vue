@@ -2,79 +2,17 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-07-29 10:07:12
- * @LastEditTime: 2022-08-14 18:59:25
+ * @LastEditTime: 2022-09-07 17:13:46
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\app.vue
 -->
 <template>
   <div class="h-full">
-    <Transition name="fade">
-      <MyLogo v-if='showLogo' :loading='loading' @click="clickLogo" />
-    </Transition>
-    <Transition name="fade">
-      <NuxtLayout v-if="!showLogo">
-        <NuxtPage />
-      </NuxtLayout>
-    </Transition>
-    <MyDialog v-model:show="showDialog" title="注意事项">
-      <div class="dialog leading-6">
-        <p>
-          本项目为纯静态的前端项目，不涉及任何音频资源的存储与分发。
-          如有侵权或不当之处请与
-          <a href="https://github.com/NMTuan" target="_blank">我</a>
-          联系。
-        </p>
-        <p>
-          本项目基于 MIT
-          协议完全开源，你可以对源码做任意修改与使用，由此产生的法律问题本站及本项目原作者概不负责。
-          <a href="https://github.com/NMTuan/ezMusic" target="_blank">
-            <div class="i-ri-github-fill inline-block align-middle text-lg"></div>
-          </a>
-        </p>
-        <p>
-          后端服务需自行搭建，教程详见
-          <a href="#" target="_blank">此处</a>
-          。请确保拥有版权。
-        </p>
-        <p>请填写并保存以下两个配置信息，聆听自己的数字音频。</p>
-        <p>
-          <input type="text" class="dialog__input" v-model="apiUrl" placeholder="API URL" />
-        </p>
-        <p>
-          <input type="text" class="dialog__input" v-model="storageUrl" placeholder="STORAGE URL" />
-        </p>
-        <p class="text-sm text-neutral-300">
-          注：此信息仅存于当前浏览器，默认保存30天。
-        </p>
-      </div>
-      <template #foot="{ close }">
-        <div class="flex flex-row-reverse">
-          <div @click="submit" class="dialog__button bg-violet-500 text-white hover:bg-violet-600">
-            <div v-if="submitLoading" class="i-ri-loader-3-line text-lg animate-spin mx-auto"></div>
-            <div v-else>保存</div>
-          </div>
-          <div @click="close" class="dialog__button text-violet-500 hover:bg-neutral-100">
-            取消
-          </div>
-        </div>
-      </template>
-    </MyDialog>
-    <div id="dialog"></div>
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </div>
-
-  <!-- <div text="5xl sky" m="x-auto b-2" class="i-ri-global-line">
-    </div>
-    <div bg="sky" p="y-2" border="rounded-lg" text="white" m="t-2">
-      hello world
-    </div>
-    <div class="flex justify-center py-4">
-      <ChangeLanguage />
-      <ToggleDark />
-    </div>
-    <div bg="yellow-100 dark:yellow-900" p="4" text="sky-400 dark:green-200">
-      {{ $t('menu.home') }}
-    </div> -->
 </template>
 <script setup lang="ts">
 // 设定默认语言
@@ -149,13 +87,13 @@ const fetchPlaylist = () => {
     immediate: true
   })
   // 成功得到返回
-  watch(res.data, () => {
-    showLogo.value = false
-    // 如果在首页, 则跳转到 playlist 页
-    if (route.name === 'index') {
-      navigateTo({ name: 'playlist' }, { replace: true })
-    }
-  })
+  // watch(res.data, () => {
+  //   showLogo.value = false
+  //   // 如果在首页, 则跳转到 playlist 页
+  //   if (route.name === 'index') {
+  //     navigateTo({ name: 'playlist' }, { replace: true })
+  //   }
+  // })
 }
 
 onMounted(() => {

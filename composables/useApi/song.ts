@@ -12,8 +12,8 @@ export default {
         return useApiFetch('/items/song', {
             method: 'get',
             params: {
-                ...params,
-                meta: '*'
+                ...params
+                // meta: '*'
             }
         })
     }

@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-08-11 15:05:23
- * @LastEditTime: 2022-09-07 17:56:24
+ * @LastEditTime: 2022-09-09 16:11:51
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\components\my\Dialog.vue
@@ -46,9 +46,9 @@ const props = defineProps({
         default: ''
     }
 })
-const emits = defineEmits([
-    'update:show'
-])
+// const emits = defineEmits([
+//     'update:show'
+// ])
 
 const close = () => {
     // emits('update:show', false)

@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-07-29 10:07:12
- * @LastEditTime: 2022-09-07 17:13:46
+ * @LastEditTime: 2022-09-09 16:00:50
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\app.vue
@@ -107,29 +107,6 @@ onMounted(() => {
 })
 
 </script>
-<style lang="scss" scoped>
-.dialog {
-  a {
-    @apply text-violet-500 no-underline;
-
-    &:hover {
-      @apply opacity-75;
-    }
-  }
-
-  &__input {
-    @apply w-full px-4 py-2 border border-neutral-300 rounded outline-none;
-
-    &:focus {
-      @apply border-violet-500;
-    }
-  }
-
-  &__button {
-    @apply w-16 text-center cursor-pointer px-4 py-2 rounded ml-2 transition-all;
-  }
-}
-</style>
 <style lang="scss">
 * {
   box-sizing: border-box;
@@ -143,15 +120,5 @@ body,
   margin: 0;
   padding: 0;
   @apply bg-violet-50 text-neutral-800;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>

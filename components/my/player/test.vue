@@ -2,24 +2,137 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-09-08 11:01:05
- * @LastEditTime: 2022-09-09 16:18:57
+ * @LastEditTime: 2022-09-13 17:44:08
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\components\my\player\test.vue
 -->
 <template>
-    <div>
+    <div class="
+        text-white
+        m-2 p-2
+        bg-violet-500
+        rounded overflow-hidden
+        w-520px mx-auto
+        relative
+        shadow
+        ">
+        <div class="
+            flex items-center
+            text-violet-100
+            pb-2
+            ">
+            <div class="
+                    flex mr-2 items-end
+                ">
+                <!-- 播放按钮 -->
+                <div class="
+                        i-ri-play-circle-line 
+                        text-6xl
+                        cursor-pointer
+                    " :class="{'animate-spin': !paused}" @click="clickPlay"></div>
+                <!-- <div class="
+                        i-ri-skip-forward-mini-fill
+                        cursor-pointer
+                    " @click="playNextSong">
+                    </div> -->
+            </div>
+            <div class="flex-1">
+                <div class="flex flex-wrap items-center my-1">
+                    <!-- 标题 -->
+                    <div class="flex flex-wrap items-center flex-1 text-lg">
+                        {{activeSong?.title}}
+                        <div class="
+                            px-2 py-1px ml-2
+                            text-xs leading-none text-violet-300
+                            bg-violet-600/50
+                            font-mono
+                        ">
+                            {{activeSong?.file?.type.split('/')[1].toUpperCase()}}
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="
+                            p-1
+                            rounded
+                            cursor-pointer
+                            hover:bg-violet-600 text-white
+                            ">
+                            <div class="i-ri-play-list-fill ml-auto"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-wrap items-center text-sm text-violet-300">
+                    <!-- 专辑 -->
+                    <div class="flex items-center mr-3 cursor-pointer
+                        hover:text-violet-50">
+                        <div class="i-ri-hashtag mr-1"></div>
+                        {{activeSong?.album?.title}}
+                    </div>
+                    <!-- 歌手 -->
+                    <div class="flex items-center mr-3 cursor-pointer
+                        hover:text-violet-50">
+                        <div class="i-ri-at-line mr-1"></div>
+                        {{activeSong?.album?.artist?.title}}
+                    </div>
+                    <!-- 播放顺序 -->
+                    <div class="
+                        flex items-center mr-3 cursor-pointer
+                        hover:text-violet-50
+                        " @click="changeMode">
+                        <div class="mr-1" :class="{
+                            'i-ri-repeat-one-line': activeMode.value ==='one',
+                            'i-ri-order-play-line': activeMode.value ==='loop',
+                            'i-ri-shuffle-line': activeMode.value ==='shuffle',
+                        }"></div>
+                        {{activeMode.label}}
+                    </div>
+                    <!-- 时间 -->
+                    <div class="
+                        flex-1
+                        text-violet-300 text-xs text-right
+                        mr-1
+                        font-mono
+                    ">
+                        {{ formatTime(currentTime) }} /
+                        {{ formatTime(duration) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 进度条 -->
+        <div class="
+            bg-violet-700
+            border-t-1px border-t-violet-600
+            border-b-1px border-b-violet-400
+            rounded overflow-hidden
+            relative
+            ">
+            <div class="
+                h-1
+                bg-white/50
+                rounded
+                " :style="{ width: progress }">
+            </div>
+        </div>
+        <div class="
+            i-ri-settings-4-fill
+            absolute top-1 left-1 z-10
+            cursor-pointer
+            text-xs text-violet-400
+            hover:text-white
+            " title="设置">
+        </div>
+        <audio src="" ref="audio"></audio>
         <div>loading: {{loading}}</div>
         <div>当前播放歌单: {{activeList.title }} </div>
         <div>歌曲数量: {{total}}</div>
-        <div @click="clickPlay">[点击播放]</div>
-        <pre>当前歌曲: {{activeSong}}</pre>
-        <div>播放模式: {{activeMode.label}} </div>
-        <audio src="" controls ref="audio"></audio>
     </div>
+
 </template>
 
 <script setup>
+
 const api = useApi()
 const apiUrl = useCookie('apiUrl')
 const storageUrl = useCookie('storageUrl')
@@ -27,15 +140,28 @@ const loading = ref(false)  // 加载中
 const activeList = ref({ id: 0, title: '全部歌曲' }) // 当前播放歌单
 const total = ref(0)    // 歌单歌曲数量
 const mode = ref([// 播放模式
-    { label: '随机播放', value: 'shuffle', active: true },
+    { label: '随机播放', value: 'shuffle' },
     { label: '列表循环', value: 'loop' },
     { label: '单曲循环', value: 'one' }
 ])
+const activeModeIndex = ref(0)
 const activeMode = computed(() => {
-    return mode.value.find(item => item.active)
+    return mode.value[activeModeIndex.value]
 })    //当前播放模式
 const activeSong = ref({})  // 当前歌曲
+
 const audio = ref(null)
+const paused = ref(true)   // 是否已暂停
+const duration = ref(0) // 音频长度
+const currentTime = ref(0) // 当前播放进度
+const progress = computed(() => {
+    let p = 0
+    if (activeSong.value) {
+        p = Math.round((currentTime.value / duration.value) * 10000) / 100
+    }
+    return p ? `${p}%` : '0%'
+})
+
 
 // 已配置
 const configured = computed(() => {
@@ -90,6 +216,14 @@ const random = (max, min = 0) => {
     return Math.floor(Math.random() * (max - min)) + min
 }
 
+// 格式化时间
+const formatTime = (timer) => {
+    const m = Math.floor(timer / 60)
+    const s = Math.floor(timer - m * 60)
+    return `${m}:${s.toString().padStart(2, '0')}`
+}
+
+
 // 读取下一首
 const fetchNextSong = () => {
     let offset = 0
@@ -121,6 +255,7 @@ const fetchNextSong = () => {
         fields: [
             'id',
             'title',
+            // 'track',
             // 'album.*',
             'album.id',
             'album.title',
@@ -166,11 +301,48 @@ const clickPlay = () => {
     audio.value.pause()
 }
 
+// 播放下一首
+//TODO 单曲循环时, 没法下一首
+const playNextSong = () => {
+    // 判断配置
+    if (!configured.value) {
+        navigateTo({ name: 'configure' })
+        return
+    }
+    fetchNextSong()
+}
+
+// 切换播放模式
+const changeMode = () => {
+    activeModeIndex.value = activeModeIndex.value + 1
+    activeModeIndex.value = activeModeIndex.value % mode.value.length
+}
 
 
 onMounted(() => {
     if (configured.value) {
         fetchActiveList()   // 获取 当前播放歌单
+
+        // 加载到媒体的元信息
+        audio.value.addEventListener('loadedmetadata', () => {
+            duration.value = audio.value.duration // 音频时长
+            // console.log('muted', el.value.muted)  // 是否静音
+        })
+
+        // 播放
+        audio.value.addEventListener('play', () => {
+            paused.value = false
+        })
+        // 暂停
+        audio.value.addEventListener('pause', () => {
+            paused.value = true
+        })
+
+        // 播放中 更新进度
+        audio.value.addEventListener('timeupdate', () => {
+            currentTime.value = audio.value.currentTime
+        })
+
         // 播放结束
         audio.value.addEventListener('ended', () => {
             // 随机播放下一首

@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-07-29 10:07:12
- * @LastEditTime: 2022-09-13 17:37:58
+ * @LastEditTime: 2022-09-14 10:39:52
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\app.vue
@@ -119,6 +119,6 @@ body,
   overflow: hidden;
   margin: 0;
   padding: 0;
-  background-color: #f5f3ff;
+  background-color: #ede9fe;
 }
 </style>

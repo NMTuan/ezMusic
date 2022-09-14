@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-09-08 11:01:05
- * @LastEditTime: 2022-09-13 17:44:08
+ * @LastEditTime: 2022-09-14 11:44:18
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\components\my\player\test.vue
@@ -12,32 +12,34 @@
         text-white
         m-2 p-2
         bg-violet-500
-        rounded overflow-hidden
-        w-520px mx-auto
+        rounded-lg overflow-hidden
+        border-4 border-white
+        mx-auto
         relative
-        shadow
+        shadow-lg
         ">
+        <!-- 上半部分 -->
         <div class="
             flex items-center
             text-violet-100
             pb-2
             ">
             <div class="
-                    flex mr-2 items-end
-                ">
+            flex mr-2 items-end
+            ">
                 <!-- 播放按钮 -->
                 <div class="
-                        i-ri-play-circle-line 
-                        text-6xl
-                        cursor-pointer
-                    " :class="{'animate-spin': !paused}" @click="clickPlay"></div>
+                i-ri-disc-line 
+                text-6xl
+                cursor-pointer
+                " :class="{'animate-spin': !paused}" @click="clickPlay"></div>
                 <!-- <div class="
                         i-ri-skip-forward-mini-fill
                         cursor-pointer
                     " @click="playNextSong">
                     </div> -->
             </div>
-            <div class="flex-1">
+            <div v-if="activeSong.id" class="flex-1">
                 <div class="flex flex-wrap items-center my-1">
                     <!-- 标题 -->
                     <div class="flex flex-wrap items-center flex-1 text-lg">
@@ -49,16 +51,6 @@
                             font-mono
                         ">
                             {{activeSong?.file?.type.split('/')[1].toUpperCase()}}
-                        </div>
-                    </div>
-                    <div class="text-right">
-                        <div class="
-                            p-1
-                            rounded
-                            cursor-pointer
-                            hover:bg-violet-600 text-white
-                            ">
-                            <div class="i-ri-play-list-fill ml-auto"></div>
                         </div>
                     </div>
                 </div>
@@ -75,18 +67,6 @@
                         <div class="i-ri-at-line mr-1"></div>
                         {{activeSong?.album?.artist?.title}}
                     </div>
-                    <!-- 播放顺序 -->
-                    <div class="
-                        flex items-center mr-3 cursor-pointer
-                        hover:text-violet-50
-                        " @click="changeMode">
-                        <div class="mr-1" :class="{
-                            'i-ri-repeat-one-line': activeMode.value ==='one',
-                            'i-ri-order-play-line': activeMode.value ==='loop',
-                            'i-ri-shuffle-line': activeMode.value ==='shuffle',
-                        }"></div>
-                        {{activeMode.label}}
-                    </div>
                     <!-- 时间 -->
                     <div class="
                         flex-1
@@ -98,6 +78,10 @@
                         {{ formatTime(duration) }}
                     </div>
                 </div>
+            </div>
+            <!-- logo -->
+            <div v-else class="text-40px font-bold mr-4 cursor-pointer" @click="clickPlay">
+                ezMusic
             </div>
         </div>
         <!-- 进度条 -->
@@ -115,24 +99,75 @@
                 " :style="{ width: progress }">
             </div>
         </div>
-        <div class="
+        <!-- 下半部分 -->
+        <div v-if="activeSong.id" class="flex items-center pt-2 
+        text-sm text-violet-200
+        ">
+            <!-- 下一首 -->
+            <div class="
+            flex items-center
+            py-1 px-1 mr-1
+            rounded
+            cursor-pointer
+            hover:bg-violet-600 hover:text-white
+            ">
+                <div class="
+                i-ri-skip-forward-fill
+                cursor-pointer
+                " @click="playNextSong">
+                </div>
+            </div>
+            <!-- 歌单 -->
+            <div class="
+            flex items-center
+            py-1 px-2
+            rounded
+            cursor-pointer
+            hover:bg-violet-600 hover:text-white
+            ">
+                <div class="i-ri-play-list-fill mr-1"></div>
+                {{activeList.title }}
+                <!-- [{{total}}] -->
+            </div>
+
+            <!-- 播放顺序 -->
+            <div class="
+            flex items-center
+            py-1 px-2
+            rounded
+            cursor-pointer
+            hover:bg-violet-600 hover:text-white
+
+                " @click="changeMode">
+                <div class="mr-1" :class="{
+                    'i-ri-repeat-one-line': activeMode.value ==='one',
+                    'i-ri-order-play-line': activeMode.value ==='loop',
+                    'i-ri-shuffle-line': activeMode.value ==='shuffle',
+                }"></div>
+                {{activeMode.label}}
+            </div>
+        </div>
+        <!-- 设置按钮 -->
+        <NuxtLink class="
             i-ri-settings-4-fill
-            absolute top-1 left-1 z-10
+            absolute top-1 right-1 z-10
             cursor-pointer
             text-xs text-violet-400
             hover:text-white
-            " title="设置">
+            " title="设置" :to="{name: 'configure'}">
+        </NuxtLink>
+        <!-- loading -->
+        <div v-if="loading" class="
+        i-ri-loader-4-fill
+        absolute bottom-1 right-1 z-10
+        text-xs text-violet-400
+        animate-spin">
         </div>
         <audio src="" ref="audio"></audio>
-        <div>loading: {{loading}}</div>
-        <div>当前播放歌单: {{activeList.title }} </div>
-        <div>歌曲数量: {{total}}</div>
     </div>
-
 </template>
 
 <script setup>
-
 const api = useApi()
 const apiUrl = useCookie('apiUrl')
 const storageUrl = useCookie('storageUrl')
@@ -176,7 +211,7 @@ const fetchActiveList = () => {
     })
 
     watchEffect(() => {
-        loading.value = pending
+        loading.value = pending.value
     })
 
     watch(data, (val) => {
@@ -202,7 +237,7 @@ const fetchALlSong = () => {
     })
 
     watchEffect(() => {
-        loading.value = pending
+        loading.value = pending.value
     })
 
     watch(data, (val) => {
@@ -249,7 +284,7 @@ const fetchNextSong = () => {
         offset = random(total.value)
     }
 
-    const { data } = api.song.fetch({
+    const { data, pending } = api.song.fetch({
         offset,
         limit: 1,
         fields: [
@@ -266,6 +301,10 @@ const fetchNextSong = () => {
             'file.type',
             'file.filename_disk',
         ]
+    })
+
+    watchEffect(() => {
+        loading.value = pending.value
     })
 
     watch(data, (val) => {

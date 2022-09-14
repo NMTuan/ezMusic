@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-09-09 11:24:15
- * @LastEditTime: 2022-09-09 16:21:52
+ * @LastEditTime: 2022-09-14 15:51:36
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\pages\configure.vue
@@ -18,10 +18,10 @@
             </p>
             <p>
                 本项目基于 MIT
-                协议完全开源，你可以对源码做任意修改与使用，由此产生的法律问题本站及本项目原作者概不负责。
-                <a class="text-violet-500" hover=" opacity-75" href="https://github.com/NMTuan/ezMusic" target="_blank">
-                    <div class="i-ri-github-fill inline-block align-middle text-lg"></div>
-                </a>
+                协议完全
+                <a class="text-violet-500" hover=" opacity-75" href="https://github.com/NMTuan/ezMusic"
+                    target="_blank">开源</a>，
+                你可以对源码做任意修改与使用，由此产生的法律问题本站及本项目原作者概不负责。
             </p>
             <p>
                 后端服务需自行搭建，教程详见
@@ -31,11 +31,11 @@
             <p>请填写并保存以下两个配置信息，聆听自己的数字音频。</p>
             <p>
                 <input type="text" class="w-full px-4 py-2 border border-neutral-300 rounded outline-none
-                focus:border-violet-500" v-model="apiUrl" placeholder="API URL" />
+                focus:border-violet-500" v-model="config.apiUrl" placeholder="API URL" />
             </p>
             <p>
                 <input type="text" class="w-full px-4 py-2 border border-neutral-300 rounded outline-none
-                focus:border-violet-500" v-model="storageUrl" placeholder="STORAGE URL" />
+                focus:border-violet-500" v-model="config.storageUrl" placeholder="STORAGE URL" />
             </p>
             <p class="text-sm text-neutral-300">
                 注：此信息仅存于当前浏览器，默认保存30天。
@@ -61,13 +61,17 @@
     </MyDialog>
 </template>
 <script setup>
-const apiUrl = useCookie('apiUrl', {
-    expires: new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000)
-})
-const storageUrl = useCookie('storageUrl', {
-    expires: new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000)
-})
+const config = useConfig()
 const loading = ref(false)
-
-const submit = () => { }
+const submit = () => {
+    if (loading.value) {
+        return
+    }
+    if (!config.perfected) {
+        alert('请先完善配置项')
+        return
+    }
+    loading.value = true
+    location.href = location.origin
+}
 </script>

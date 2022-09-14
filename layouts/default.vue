@@ -2,23 +2,14 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-07-29 16:05:46
- * @LastEditTime: 2022-08-14 15:42:11
+ * @LastEditTime: 2022-09-14 16:06:37
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\layouts\default.vue
 -->
 <template>
-    <div class="flex flex-col h-full max-w-120 mx-auto overflow-hidden">
-        <div class="flex-shrink-0 h-8vh"></div>
-        <div class="flex flex-col flex-1 overflow-hidden 
-    bg-white rounded
-    shadow 
-    ">
-            <MyPlayer />
-            <MyPlayList />
-            <slot />
-            <div class="p-1"></div>
-        </div>
-        <div class="flex-shrink-0 h-8vh"></div>
+    <div class="flex flex-col justify-center h-full">
+        <MyPlayer />
+        <slot />
     </div>
 </template>

@@ -825,6 +825,11 @@
   resolved "https://registry.npmmirror.com/@unocss/core/-/core-0.44.7.tgz"
   integrity sha512-EPs3IxvPdzxEkEynAyCqyJX25IPp5RtFK3mFdgmXGvigwpgq9sxJBzQRXmYNtDeZriSyiwjYmc9yclLEJH3IiA==
 
+"@unocss/core@0.45.18":
+  version "0.45.18"
+  resolved "https://registry.npmmirror.com/@unocss/core/-/core-0.45.18.tgz#9c7c66eac358763211d6cf74ce9888b43deba96e"
+  integrity sha512-506GHQX8/TpKNZ96k4ujSWp5SpcsZZnwwTg9NcLf7M3y5BXEwv0dE7Jfz7eJiFm2G+RYEgrXwYk7y7dFF8evxA==
+
 "@unocss/core@0.45.6":
   version "0.45.6"
   resolved "https://registry.npmmirror.com/@unocss/core/-/core-0.45.6.tgz"
@@ -935,6 +940,13 @@
   integrity sha512-LwyjtdHIrgX6AREKiPmXSXjXclSUSnY/cHXSlwTqfs3Q0bkp6voFNG2CzhJF5xMoMa27ZszpvACbZG5CIZYOuA==
   dependencies:
     "@unocss/core" "0.44.7"
+
+"@unocss/transformer-compile-class@^0.45.18":
+  version "0.45.18"
+  resolved "https://registry.npmmirror.com/@unocss/transformer-compile-class/-/transformer-compile-class-0.45.18.tgz#f83b09a47f95a643293e4eb3586ff12a8d85f043"
+  integrity sha512-bcjM4rUsCi14GB4Myp4Yby8Dife5tOU70yxruR8orugzKvPk9ghMdPkgAM6kqaS/mEtCSCFofzvl6pOLy4QU9Q==
+  dependencies:
+    "@unocss/core" "0.45.18"
 
 "@unocss/transformer-directives@0.44.7":
   version "0.44.7"

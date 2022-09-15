@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-09-08 11:01:05
- * @LastEditTime: 2022-09-15 17:12:21
+ * @LastEditTime: 2022-09-15 17:23:01
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\components\my\player\Index.vue
@@ -11,7 +11,7 @@
     <div class="text-white m-2 p-2 bg-violet-500 rounded-lg overflow-hidden border-4 border-white mx-auto relative shadow-lg 
     transition-all duration-700" :class="{'w-272px': !activeSong.id, 'w-480px': activeSong.id}">
         <!-- 上半部分 -->
-        <div class="flex items-center text-violet-100 pb-2">
+        <div class="flex items-center text-violet-50 pb-2">
             <div class="flex mr-2 items-end">
                 <!-- 播放按钮 -->
                 <div class="i-ri-disc-line text-6xl cursor-pointer" :class="{ 'animate-spin': !paused }"

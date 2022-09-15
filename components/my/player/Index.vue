@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-09-08 11:01:05
- * @LastEditTime: 2022-09-14 16:21:12
+ * @LastEditTime: 2022-09-15 17:12:21
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\components\my\player\Index.vue
@@ -127,50 +127,41 @@ const progress = computed(() => {
 })
 
 // 找 active 的歌单
-const fetchActiveList = () => {
-    const { data, error, pending, refresh } = api.playlist.fetch({
+const fetchActiveList = async () => {
+    loading.value = true
+    const { data, error } = await api.playlist.fetch({
         'filter[active]': true,
         fields: ['id', 'title', 'count(song_id)']
     })
+    loading.value = false
 
-    watchEffect(() => {
-        loading.value = pending.value
-    })
+    // watch(error, (val) => {
+    //     console.log('[error]', val)
+    //     alert('数据加载异常, 请检查配置项或刷新重试!')
+    // })
 
-    watch(error, (val) => {
-        console.log('[error]', val)
-        alert('数据加载异常, 请检查配置项或刷新重试!')
-    })
-
-    watch(data, (val) => {
-        if (val.data.length > 0) {
-            // 如果有 active 歌单
-            activeList.value = {
-                id: val.data[0].id,
-                title: val.data[0].title
-            }
-            total.value = val.data[0].song_id_count
-        } else {
-            // 否则取所有歌曲数量
-            fetchALlSong()
+    if (data.value.data.length > 0) {
+        // 如果有 active 歌单
+        activeList.value = {
+            id: data.value.data[0].id,
+            title: data.value.data[0].title
         }
-    })
+        total.value = data.value.data[0].song_id_count
+    } else {
+        // 否则取所有歌曲数量
+        await fetchALlSong()
+    }
 }
 
 // 取歌曲总数
-const fetchALlSong = () => {
-    const { data, error, pending, refresh } = api.song.fetch({
+const fetchALlSong = async () => {
+    loading.value = true
+    const { data } = await api.song.fetch({
         limit: 0,
         meta: '*'
     })
-
-    watchEffect(() => {
-        loading.value = pending.value
-    })
-
-    watch(data, (val) => {
-        total.value = val.meta.total_count
-    })
+    loading.value = false
+    total.value = data.value.meta.total_count
 }
 
 // 随机数 res >= min ; res < max;
@@ -186,8 +177,9 @@ const formatTime = (timer) => {
 }
 
 // 读取下一首
-const fetchNextSong = () => {
+const fetchNextSong = async () => {
     let offset = 0
+
     // 单曲循环
     // 如果没有当前歌曲, 则走后面流程取第一首歌曲, 否则直接播放当前歌曲
     if (activeSong.value.id !== undefined && activeMode.value.value === 'one') {
@@ -213,7 +205,8 @@ const fetchNextSong = () => {
         offset = random(total.value)
     }
 
-    const { data, pending } = api.song.fetch({
+    loading.value = true
+    const { data } = await api.song.fetch({
         offset,
         limit: 1,
         fields: [
@@ -231,22 +224,21 @@ const fetchNextSong = () => {
             'file.filename_disk'
         ]
     })
+    loading.value = false
 
-    watchEffect(() => {
-        loading.value = pending.value
-    })
+    if (data.value.data.length === 0) {
+        return
+    }
 
-    watch(data, (val) => {
-        activeSong.value = val.data[0]
-        activeSong.value.index = offset
-        audio.value.src =
-            config.storageUrl + activeSong.value.file.filename_disk
-        audio.value.play()
-    })
+    activeSong.value = data.value.data[0]
+    activeSong.value.index = offset
+    audio.value.src =
+        config.storageUrl + activeSong.value.file.filename_disk
+    audio.value.play()
 }
 
 // 点击播放按钮
-const clickPlay = () => {
+const clickPlay = async () => {
     // 判断配置
     if (!config.perfected) {
         navigateTo({ name: 'configure' })
@@ -255,7 +247,7 @@ const clickPlay = () => {
 
     // 没有歌曲信息
     if (activeSong.value.id === undefined) {
-        fetchNextSong()
+        await fetchNextSong()
         return
     }
 
@@ -271,13 +263,13 @@ const clickPlay = () => {
 
 // 播放下一首
 //TODO 单曲循环时, 没法下一首
-const playNextSong = () => {
+const playNextSong = async () => {
     // 判断配置
     if (!config.perfected) {
         navigateTo({ name: 'configure' })
         return
     }
-    fetchNextSong()
+    await fetchNextSong()
 }
 
 // 切换播放模式
@@ -286,9 +278,9 @@ const changeMode = () => {
     activeModeIndex.value = activeModeIndex.value % mode.value.length
 }
 
-onMounted(() => {
+onMounted(async () => {
     if (config.perfected) {
-        fetchActiveList() // 获取 当前播放歌单
+        await fetchActiveList() // 获取 当前播放歌单
 
         // 加载到媒体的元信息
         audio.value.addEventListener('loadedmetadata', () => {
@@ -311,9 +303,9 @@ onMounted(() => {
         })
 
         // 播放结束
-        audio.value.addEventListener('ended', () => {
+        audio.value.addEventListener('ended', async () => {
             // 随机播放下一首
-            fetchNextSong()
+            await fetchNextSong()
         })
     }
 })

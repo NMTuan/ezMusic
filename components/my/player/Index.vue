@@ -2,14 +2,13 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-09-08 11:01:05
- * @LastEditTime: 2022-09-15 17:23:01
+ * @LastEditTime: 2022-09-16 15:31:45
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\components\my\player\Index.vue
 -->
 <template>
-    <div class="text-white m-2 p-2 bg-violet-500 rounded-lg overflow-hidden border-4 border-white mx-auto relative shadow-lg 
-    transition-all duration-700" :class="{'w-272px': !activeSong.id, 'w-480px': activeSong.id}">
+    <div class="transition-all duration-700 mx-auto" :class="{'w-250px': !activeSong.id, 'w-520px': activeSong.id}">
         <!-- 上半部分 -->
         <div class="flex items-center text-violet-50 pb-2">
             <div class="flex mr-2 items-end">
@@ -66,11 +65,12 @@
                 <div class="i-ri-skip-forward-fill cursor-pointer" @click="playNextSong"></div>
             </div>
             <!-- 歌单 -->
-            <div
+            <div @click="clickPlayList"
                 class="flex flex-shrink-0 items-center py-1 px-2 rounded cursor-pointer hover:bg-violet-600 hover:text-white">
                 <div class="i-ri-play-list-fill mr-1"></div>
                 {{ activeList.title }}
-                <!-- [{{total}}] -->
+                <div class="px-1 py-1px ml-1 text-xs leading-none text-violet-300 bg-violet-600/50 font-mono">{{total}}
+                </div>
             </div>
 
             <!-- 播放顺序 -->
@@ -82,6 +82,13 @@
                     'i-ri-shuffle-line': activeMode.value === 'shuffle'
                 }"></div>
                 {{ activeMode.label }}
+            </div>
+
+            <div class="flex-1 flex flex-row-reverse">
+                <div
+                    class="flex flex-shrink-0 items-center py-1 px-1 rounded cursor-pointer hover:bg-violet-600 hover:text-white">
+                    <div class="i-ri-layout-grid-fill"></div>
+                </div>
             </div>
         </div>
         <!-- 设置按钮 -->
@@ -147,10 +154,10 @@ const fetchActiveList = async () => {
             title: data.value.data[0].title
         }
         total.value = data.value.data[0].song_id_count
-    } else {
-        // 否则取所有歌曲数量
-        await fetchALlSong()
+        return
     }
+    // 否则取所有歌曲数量
+    await fetchALlSong()
 }
 
 // 取歌曲总数
@@ -276,6 +283,11 @@ const playNextSong = async () => {
 const changeMode = () => {
     activeModeIndex.value = activeModeIndex.value + 1
     activeModeIndex.value = activeModeIndex.value % mode.value.length
+}
+
+// 点击歌单
+const clickPlayList = () => {
+    navigateTo({ name: 'playlist' })
 }
 
 onMounted(async () => {

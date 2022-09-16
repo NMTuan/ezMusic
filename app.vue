@@ -2,13 +2,13 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-07-29 10:07:12
- * @LastEditTime: 2022-09-15 16:39:37
+ * @LastEditTime: 2022-09-16 16:42:20
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\app.vue
 -->
 <template>
-  <div class="h-full">
+  <div class="flex h-full py-10">
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>

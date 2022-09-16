@@ -2,17 +2,19 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-06-19 16:07:49
- * @LastEditTime: 2022-09-15 17:00:33
+ * @LastEditTime: 2022-09-16 15:07:05
  * @LastEditors: NMTuan
  * @Description: 异步处理配置
  * @FilePath: \ezMusic\composables\useApiFetch.ts
  */
 
 export default (url, options) => {
-    const apiUrl = useCookie('apiUrl')
+    const config = useConfig()
+
     const params = {
         // headers: {},
-        baseURL: apiUrl.value,
+        key: url, // 没有 key 同一个 api 的多次请求可能会被合并
+        baseURL: config.apiUrl,
         initialCache: false,
         // 拦截器 https://github.com/unjs/ohmyfetch#%EF%B8%8F-interceptors
         async onRequestError({ request, options, error }) {
@@ -31,6 +33,7 @@ export default (url, options) => {
         ...params,
         ...options
     })
+
     // return useLazyAsyncData(
     //     url,
     //     () =>

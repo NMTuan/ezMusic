@@ -2,15 +2,15 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-09-08 11:01:05
- * @LastEditTime: 2022-09-16 15:31:45
+ * @LastEditTime: 2022-09-19 14:53:32
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\components\my\player\Index.vue
 -->
 <template>
-    <div class="transition-all duration-700 mx-auto" :class="{'w-250px': !activeSong.id, 'w-520px': activeSong.id}">
+    <div class="flex-shrink-0 overflow-hidden w-full">
         <!-- 上半部分 -->
-        <div class="flex items-center text-violet-50 pb-2">
+        <div class="flex items-center justify-center text-violet-50 pb-2">
             <div class="flex mr-2 items-end">
                 <!-- 播放按钮 -->
                 <div class="i-ri-disc-line text-6xl cursor-pointer" :class="{ 'animate-spin': !paused }"

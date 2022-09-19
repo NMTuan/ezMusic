@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-08-09 11:49:22
- * @LastEditTime: 2022-09-16 17:40:51
+ * @LastEditTime: 2022-09-19 14:57:58
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\components\my\playList\Item.vue
@@ -11,32 +11,31 @@
     <div class="
     flex
     py-1 px-2
-    rounded
-    text-sm text-violet-200
+    text-sm 
     transition-all
     group
-    hover:bg-violet-500
+    hover:bg-black/15
     ">
         <div class="
         flex mr-3
         overflow-hidden
         group-hover:text-white
         ">
-            <div class="truncate">{{ item.title }}</div>
+            <div class="truncate" :title="item.title">{{ item.title }}</div>
         </div>
         <!-- 专辑 -->
         <div class="flex items-center mr-3 cursor-pointer 
         text-violet-500 overflow-hidden
         group-hover:text-violet-300">
             <div class="flex-shrink-0 i-ri-hashtag mr-1"></div>
-            <div class="truncate">{{ item?.album?.title }}</div>
+            <div class="truncate" :title="item?.album?.title">{{ item?.album?.title }}</div>
         </div>
         <!-- 歌手 -->
         <div class="flex items-center mr-3 cursor-pointer 
         text-violet-500 overflow-hidden
         group-hover:text-violet-300">
             <div class="flex-shrink-0 i-ri-at-line mr-1"></div>
-            <div class="truncate">{{ item?.album?.artist?.title }}</div>
+            <div class="truncate" :title="item?.album?.artist?.title">{{ item?.album?.artist?.title }}</div>
         </div>
 
         <!-- <div>

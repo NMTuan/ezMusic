@@ -13,7 +13,7 @@
         "@unocss/nuxt": "^0.44.7",
         "@unocss/transformer-compile-class": "^0.45.18",
         "@unocss/transformer-directives": "^0.45.6",
-        "nuxt": "3.0.0-rc.6"
+        "nuxt": "^3.0.0-rc.10"
     },
     "dependencies": {
         "@pinia/nuxt": "^0.3.1",

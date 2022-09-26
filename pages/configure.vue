@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-09-09 11:24:15
- * @LastEditTime: 2022-09-19 16:17:17
+ * @LastEditTime: 2022-09-26 13:53:47
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\pages\configure.vue
@@ -25,7 +25,8 @@
             </p>
             <p>
                 后端服务需自行搭建，教程详见
-                <a class="text-violet-100" hover=" opacity-75" href="#" target="_blank">此处</a>
+                <a class="text-violet-100" hover=" opacity-75" href="https://www.muyi.dev/ezmusic/"
+                    target="_blank">此处</a>
                 。请确保拥有版权。
             </p>
             <p>请填写并保存以下两个配置信息，聆听自己的数字音频。</p>

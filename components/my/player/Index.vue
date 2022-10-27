@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-09-08 11:01:05
- * @LastEditTime: 2022-09-19 14:53:32
+ * @LastEditTime: 2022-10-27 10:13:30
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\components\my\player\Index.vue
@@ -23,9 +23,9 @@
                         <div class=" flex-shrink-0">{{ activeSong?.title }}</div>
                         <div class="px-2 py-1px ml-2 text-xs leading-none text-violet-300 bg-violet-600/50 font-mono">
                             {{
-                                activeSong?.file?.type
-                                    .split('/')[1]
-                                    .toUpperCase()
+                                    activeSong?.file?.type
+                                        .split('/')[1]
+                                        .toUpperCase()
                             }}
                         </div>
                     </div>
@@ -69,7 +69,8 @@
                 class="flex flex-shrink-0 items-center py-1 px-2 rounded cursor-pointer hover:bg-violet-600 hover:text-white">
                 <div class="i-ri-play-list-fill mr-1"></div>
                 {{ activeList.title }}
-                <div class="px-1 py-1px ml-1 text-xs leading-none text-violet-300 bg-violet-600/50 font-mono">{{total}}
+                <div class="px-1 py-1px ml-1 text-xs leading-none text-violet-300 bg-violet-600/50 font-mono">
+                    {{ total }}
                 </div>
             </div>
 
@@ -172,8 +173,9 @@ const fetchALlSong = async () => {
 }
 
 // 随机数 res >= min ; res < max;
-const random = (max, min = 0) => {
-    return Math.floor(Math.random() * (max - min)) + min
+const random = (max, min = 1) => {
+    // https://blog.csdn.net/qq_29132907/article/details/77101665
+    return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
 // 格式化时间

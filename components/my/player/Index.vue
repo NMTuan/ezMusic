@@ -2,7 +2,7 @@
  * @Author: NMTuan
  * @Email: NMTuan@qq.com
  * @Date: 2022-09-08 11:01:05
- * @LastEditTime: 2022-10-27 10:13:30
+ * @LastEditTime: 2022-11-08 14:14:43
  * @LastEditors: NMTuan
  * @Description: 
  * @FilePath: \ezMusic\components\my\player\Index.vue
@@ -61,8 +61,9 @@
         <!-- 下半部分 -->
         <div v-if="activeSong.id" class="flex items-center pt-2 text-sm text-violet-200">
             <!-- 下一首 -->
-            <div class="flex items-center py-1 px-1 mr-1 rounded cursor-pointer hover:bg-violet-600 hover:text-white">
-                <div class="i-ri-skip-forward-fill cursor-pointer" @click="playNextSong"></div>
+            <div class="flex items-center py-1 px-1 mr-1 rounded cursor-pointer hover:bg-violet-600 hover:text-white"
+                @click="playNextSong">
+                <div class="i-ri-skip-forward-fill cursor-pointer"></div>
             </div>
             <!-- 歌单 -->
             <div @click="clickPlayList"
@@ -241,6 +242,15 @@ const fetchNextSong = async () => {
 
     activeSong.value = data.value.data[0]
     activeSong.value.index = offset
+
+    // 设置标题
+    console.log(JSON.stringify(activeSong.value, null, 2))
+    if (activeSong.value.title) {
+        useHead({
+            title: `${activeSong.value.title} #${activeSong.value.album.title} @${activeSong.value.album.artist.title}`
+        })
+    }
+
     audio.value.src =
         config.storageUrl + activeSong.value.file.filename_disk
     audio.value.play()
